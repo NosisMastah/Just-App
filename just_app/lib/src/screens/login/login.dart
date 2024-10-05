@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:just_app/src/widgets/custom_input_field.dart';
 import 'package:just_app/src/widgets/custom_button.dart';
 import 'forgotPassword.dart';
@@ -37,7 +38,10 @@ class _LoginPageState extends State<LoginPage> {
       backgroundColor: Colors.white,
       body: Center(
         child: SingleChildScrollView(
-          padding: EdgeInsets.all(16.0), // Padding lateral
+          padding: EdgeInsets.symmetric(
+            horizontal: kIsWeb ? 500.0 : 16.0,
+            vertical: 16.0,
+          ),
           child: Form(
             key: _formKey,
             child: Column(
