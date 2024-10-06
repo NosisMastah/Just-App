@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:just_app/src/widgets/custom_input_field.dart';
 import 'package:just_app/src/widgets/custom_button.dart';
@@ -35,11 +36,15 @@ class _RegistoPageState extends State<RegistoPage> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
         child: SingleChildScrollView(
-          padding: EdgeInsets.all(16.0), // Padding lateral
+          padding: EdgeInsets.symmetric(
+            horizontal: kIsWeb ? width * 0.35 : 16.0,
+            vertical: 16.0,
+          ), // Padding lateral
           child: Form(
             key: _formKey,
             child: Column(
