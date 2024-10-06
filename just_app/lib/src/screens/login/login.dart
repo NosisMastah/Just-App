@@ -34,12 +34,13 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(
-            horizontal: kIsWeb ? 500.0 : 16.0,
+            horizontal: kIsWeb ? width * 0.35 : 16.0,
             vertical: 16.0,
           ),
           child: Form(
@@ -113,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
                       );
                     },
                     child: Text(
-                      'Esqueci-me a password',
+                      'Esqueci-me da password',
                       style: TextStyle(color: Colors.blueAccent),
                     ),
                   ),
