@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1041744619832",
+    "project_id": "just-app-358a0",
+    "storage_bucket": "just-app-358a0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1041744619832:android:1b7390f1505c67e9fcf9cd",
+        "android_client_info": {
+          "package_name": "com.example.just_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRTha8FgFUgYLeX8Zvpgzn_p2a75N9sc4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
