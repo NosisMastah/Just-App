@@ -1,9 +1,9 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/foundation.dart'; // kIsWeb support
 import 'package:flutter/material.dart';
 import 'src/settings/settings_controller.dart';
 import 'src/settings/settings_service.dart';
-import 'src/screens/login/login.dart'; // Importando a página de login
-import 'package:firebase_core/firebase_core.dart';
+import 'src/screens/login/login.dart'; // Login Page
+import 'package:firebase_core/firebase_core.dart'; // Firebase Core
 
 void main() async {
 	WidgetsFlutterBinding.ensureInitialized();
