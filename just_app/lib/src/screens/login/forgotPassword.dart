@@ -27,16 +27,8 @@ class ForgotPasswordPage extends StatefulWidget {
 
 class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   final _formKey = GlobalKey<FormState>();
-  final _email = TextEditingController();
-  final _password = TextEditingController();
-
-  @override
-  // Apaga da memória os campos de email e password quando o Widget de login for apagado
-  void dispose() {
-    super.dispose();
-    _email.dispose();
-    _password.dispose();
-  }
+  String _email = "";
+  String _password = "";
   
   @override
   Widget build(BuildContext context) {
@@ -72,7 +64,11 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 CustomTextField(
                   labelText: 'Email',
                   icon: Icons.email,
-                  controller: _email,
+                  onChanged: (text) {
+                    setState(() {
+                      _email = text;
+                    });
+                  },
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Por favor, insira o email';

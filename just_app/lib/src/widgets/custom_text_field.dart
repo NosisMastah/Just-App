@@ -5,14 +5,14 @@ class CustomTextField extends StatelessWidget {
   final IconData icon;
   final bool isPassword;
   final String? Function(String?) validator;
-  final TextEditingController controller;
+  final ValueChanged<String> onChanged;
 
   CustomTextField({
     required this.labelText,
     required this.icon,
     this.isPassword = false,
     required this.validator,
-    required this.controller,
+    required this.onChanged,
   });
 
   @override
@@ -23,9 +23,9 @@ class CustomTextField extends StatelessWidget {
         border: OutlineInputBorder(),
         prefixIcon: Icon(icon),
       ),
-      controller: controller,
       obscureText: isPassword,
       validator: validator,
+      onChanged: onChanged,
     );
   }
 }

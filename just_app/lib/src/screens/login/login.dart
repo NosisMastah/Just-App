@@ -33,16 +33,8 @@ class _LoginPageState extends State<LoginPage> {
   final _auth = AuthService();
 
   final _formKey = GlobalKey<FormState>();
-  final _email = TextEditingController();
-  final _password = TextEditingController();
-
-  @override
-  // Apaga da memória os campos de email e password quando o Widget de login for apagado
-  void dispose() {
-    super.dispose();
-    _email.dispose();
-    _password.dispose();
-  }
+  String _email = "";
+  String _password = "";
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +74,11 @@ class _LoginPageState extends State<LoginPage> {
                 CustomTextField(
                   labelText: 'Email',
                   icon: Icons.email,
-                  controller: _email,
+                  onChanged: (text) {
+                    setState(() {
+                      _email = text;
+                    });
+                  },
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Por favor, insira o email';
@@ -97,7 +93,11 @@ class _LoginPageState extends State<LoginPage> {
                   labelText: 'Password',
                   icon: Icons.lock,
                   isPassword: true,
-                  controller: _password,
+                  onChanged: (text) {
+                    setState(() {
+                      _password = text;
+                    });
+                  },
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Por favor, insira a senha';
@@ -163,7 +163,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   _signup() async{
-    final user = await _auth.loginUserWithEmailAndPassword(_email.text, _password.text);
+    final user = await _auth.loginUserWithEmailAndPassword(_email, _password);
 
     if(user != null){
       Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPasswordPage()),);

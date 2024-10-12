@@ -29,18 +29,10 @@ class RegistoPage extends StatefulWidget {
 
 class _RegistoPageState extends State<RegistoPage> {
   final _formKey = GlobalKey<FormState>();
-  final _name = TextEditingController();
-  final _email = TextEditingController();
-  final _password = TextEditingController();
-  final _confirmPassword = TextEditingController();
-
-  @override
-  // Apaga da memória os campos de email e password quando o Widget de login for apagado
-  void dispose() {
-    super.dispose();
-    _email.dispose();
-    _password.dispose();
-  }
+  String _name = "";
+  String _email = "";
+  String _password = "";
+  String _confirmPassword = "";
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +72,11 @@ class _RegistoPageState extends State<RegistoPage> {
                 CustomTextField(
                   labelText: 'Nome',
                   icon: Icons.person,
-                  controller: _name,
+                  onChanged: (text) {
+                    setState(() {
+                      _name = text;
+                    });
+                  },
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Por favor, insira o seu nome';
@@ -94,7 +90,11 @@ class _RegistoPageState extends State<RegistoPage> {
                 CustomTextField(
                   labelText: 'Email',
                   icon: Icons.email,
-                  controller: _email,
+                  onChanged: (text) {
+                    setState(() {
+                      _email = text;
+                    });
+                  },
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Por favor, insira o email';
@@ -109,7 +109,11 @@ class _RegistoPageState extends State<RegistoPage> {
                   labelText: 'Password',
                   icon: Icons.lock,
                   isPassword: true,
-                  controller: _password,
+                  onChanged: (text) {
+                    setState(() {
+                      _password = text;
+                    });
+                  },
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Por favor, insira a senha';
@@ -125,7 +129,11 @@ class _RegistoPageState extends State<RegistoPage> {
                   labelText: 'Confirmar Password',
                   icon: Icons.lock,
                   isPassword: true,
-                  controller: _confirmPassword,
+                  onChanged: (text) {
+                    setState(() {
+                      _confirmPassword = text;
+                    });
+                  },
                   validator: (value1) {
                     if (value1 == null || value1.isEmpty) {
                       return 'Por favor, confirme a senha';
