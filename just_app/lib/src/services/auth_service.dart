@@ -26,7 +26,7 @@ class AuthService {
     _auth = FirebaseAuth.instance;
   }
 
-  // Criar usuário com e-mail e senha
+  // Criar user com e-mail e senha
   Future<User?> createUserWithEmailAndPassword(String email, String password) async {
     await initializeFirebase();
     try {
