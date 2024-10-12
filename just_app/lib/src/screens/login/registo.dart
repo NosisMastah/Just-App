@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:just_app/src/widgets/custom_input_field.dart';
+import 'package:just_app/src/widgets/custom_text_field.dart';
 import 'package:just_app/src/widgets/custom_button.dart';
 
 
@@ -29,10 +29,18 @@ class RegistoPage extends StatefulWidget {
 
 class _RegistoPageState extends State<RegistoPage> {
   final _formKey = GlobalKey<FormState>();
-  String _nome = '';
-  String _email = '';
-  String _password = '';
-  String _checkPassword = '';
+  final _name = TextEditingController();
+  final _email = TextEditingController();
+  final _password = TextEditingController();
+  final _confirmPassword = TextEditingController();
+
+  @override
+  // Apaga da memória os campos de email e password quando o Widget de login for apagado
+  void dispose() {
+    super.dispose();
+    _email.dispose();
+    _password.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,14 +77,10 @@ class _RegistoPageState extends State<RegistoPage> {
                 SizedBox(height: 30),
 
                 //Nome input
-                CustomInputField(
+                CustomTextField(
                   labelText: 'Nome',
                   icon: Icons.person,
-                  onChanged: (value) {
-                    setState(() {
-                      _email = value;
-                    });
-                  },
+                  controller: _name,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Por favor, insira o seu nome';
@@ -87,14 +91,10 @@ class _RegistoPageState extends State<RegistoPage> {
                 SizedBox(height: 20),
 
                 // Email input
-                CustomInputField(
+                CustomTextField(
                   labelText: 'Email',
                   icon: Icons.email,
-                  onChanged: (value) {
-                    setState(() {
-                      _email = value;
-                    });
-                  },
+                  controller: _email,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Por favor, insira o email';
@@ -105,15 +105,11 @@ class _RegistoPageState extends State<RegistoPage> {
                 SizedBox(height: 20),
 
                 // Password input
-                CustomInputField(
+                CustomTextField(
                   labelText: 'Password',
                   icon: Icons.lock,
                   isPassword: true,
-                  onChanged: (value) {
-                    setState(() {
-                      _password = value;
-                    });
-                  },
+                  controller: _password,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Por favor, insira a senha';
@@ -125,21 +121,17 @@ class _RegistoPageState extends State<RegistoPage> {
 
 
                 // Check Password input
-                CustomInputField(
+                CustomTextField(
                   labelText: 'Confirmar Password',
                   icon: Icons.lock,
                   isPassword: true,
-                  onChanged: (value1) {
-                    setState(() {
-                      _checkPassword = value1;
-                    });
-                  },
+                  controller: _confirmPassword,
                   validator: (value1) {
                     if (value1 == null || value1.isEmpty) {
                       return 'Por favor, confirme a senha';
                     }
 
-                    if (_password != _checkPassword) {
+                    if (_password != _confirmPassword) {
                       return 'Por favor, insira a mesma senha.';
                     }
                     return null;

@@ -1,8 +1,10 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:just_app/src/widgets/custom_input_field.dart';
+import 'package:just_app/src/widgets/custom_text_field.dart';
 import 'package:just_app/src/widgets/custom_button.dart';
 import 'forgotPassword.dart';
+import 'package:just_app/src/services/auth_service.dart';
 
 void main() {
   runApp(MyApp());
@@ -28,9 +30,19 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final _auth = AuthService();
+
   final _formKey = GlobalKey<FormState>();
-  String _email = '';
-  String _password = '';
+  final _email = TextEditingController();
+  final _password = TextEditingController();
+
+  @override
+  // Apaga da memória os campos de email e password quando o Widget de login for apagado
+  void dispose() {
+    super.dispose();
+    _email.dispose();
+    _password.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,14 +79,10 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(height: 30),
 
                 // Email input
-                CustomInputField(
+                CustomTextField(
                   labelText: 'Email',
                   icon: Icons.email,
-                  onChanged: (value) {
-                    setState(() {
-                      _email = value;
-                    });
-                  },
+                  controller: _email,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Por favor, insira o email';
@@ -85,15 +93,11 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(height: 20),
 
                 // Password input
-                CustomInputField(
+                CustomTextField(
                   labelText: 'Password',
                   icon: Icons.lock,
                   isPassword: true,
-                  onChanged: (value) {
-                    setState(() {
-                      _password = value;
-                    });
-                  },
+                  controller: _password,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Por favor, insira a senha';
@@ -129,10 +133,7 @@ class _LoginPageState extends State<LoginPage> {
                   color: Colors.blueAccent,
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      // Login event listener
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Login com sucesso!')),
-                      );
+                      _signup();                      
                     }
                   },
                 ),
@@ -159,5 +160,15 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  _signup() async{
+    final user = await _auth.loginUserWithEmailAndPassword(_email.text, _password.text);
+
+    if(user != null){
+      Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPasswordPage()),);
+    }else{
+      log("Something went wrong!");
+    }
   }
 }

@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
-class CustomInputField extends StatelessWidget {
+class CustomTextField extends StatelessWidget {
   final String labelText;
   final IconData icon;
   final bool isPassword;
-  final Function(String) onChanged;
   final String? Function(String?) validator;
+  final TextEditingController controller;
 
-  CustomInputField({
+  CustomTextField({
     required this.labelText,
     required this.icon,
     this.isPassword = false,
-    required this.onChanged,
     required this.validator,
+    required this.controller,
   });
 
   @override
@@ -23,9 +23,9 @@ class CustomInputField extends StatelessWidget {
         border: OutlineInputBorder(),
         prefixIcon: Icon(icon),
       ),
+      controller: controller,
       obscureText: isPassword,
       validator: validator,
-      onChanged: onChanged,
     );
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:just_app/src/widgets/custom_input_field.dart';
+import 'package:just_app/src/widgets/custom_text_field.dart';
 import 'login.dart';
 
 void main() {
@@ -27,8 +27,17 @@ class ForgotPasswordPage extends StatefulWidget {
 
 class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   final _formKey = GlobalKey<FormState>();
-  String _email = '';
+  final _email = TextEditingController();
+  final _password = TextEditingController();
 
+  @override
+  // Apaga da memória os campos de email e password quando o Widget de login for apagado
+  void dispose() {
+    super.dispose();
+    _email.dispose();
+    _password.dispose();
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,14 +69,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 SizedBox(height: 30),
 
                 // Email input
-                CustomInputField(
+                CustomTextField(
                   labelText: 'Email',
                   icon: Icons.email,
-                  onChanged: (value) {
-                    setState(() {
-                      _email = value;
-                    });
-                  },
+                  controller: _email,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Por favor, insira o email';
