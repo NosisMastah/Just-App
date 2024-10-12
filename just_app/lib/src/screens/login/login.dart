@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:just_app/main.dart';
 import 'package:just_app/src/widgets/custom_text_field.dart';
 import 'package:just_app/src/widgets/custom_button.dart';
 import 'forgotPassword.dart';
@@ -166,7 +167,7 @@ class _LoginPageState extends State<LoginPage> {
     final user = await _auth.loginUserWithEmailAndPassword(_email, _password);
 
     if(user != null){
-      Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPasswordPage()),);
+      Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage()),);
     }else{
       log("Something went wrong!");
     }
